@@ -29,3 +29,24 @@ export const addDiaryEntry = (newDiaryEntry: NewDiaryEntry): DiaryEntry => {
 
 	return newDiary
 }
+
+export const deleteDiary = (id: number): DiaryEntry[] => {
+	const index = diaries.findIndex(entry => entry.id === id)
+	return diaries.splice(index, 1)
+}
+
+export const updateDiaryEntry = (
+	id: number,
+	newDiaryEntry: NewDiaryEntry
+): DiaryEntry | undefined => {
+	const diary = findDiaryEntry(id)
+
+	if (diary) {
+		diary.date = newDiaryEntry.date
+		diary.weather = newDiaryEntry.weather
+		diary.visibility = newDiaryEntry.visibility
+		diary.comment = newDiaryEntry.comment
+	}
+
+	return diary
+}

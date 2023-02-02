@@ -34,4 +34,32 @@ router.post('/', (req, res) => {
 	}
 })
 
+router.delete('/:id', (req, res) => {
+	const id = Number(req.params.id)
+
+	const diary = diaryServices.deleteDiary(id)
+
+	if (diary) {
+		res.json(diary)
+	} else {
+		res.sendStatus(404)
+	}
+})
+
+router.put('/:id', (req, res) => {
+	const id = Number(req.params.id)
+
+	const diary = diaryServices.findDiaryEntry(id)
+
+	if (diary) {
+		const newDiaryEntry = toNewDiaryEntry(req.body)
+
+		const updatedDiaryEntry = diaryServices.updateDiaryEntry(id, newDiaryEntry)
+
+		res.json(updatedDiaryEntry)
+	} else {
+		res.sendStatus(404)
+	}
+})
+
 export default router
